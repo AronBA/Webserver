@@ -1,4 +1,4 @@
-package dev.aronba.constant;
+package dev.aronba.server;
 
 public enum ServerState {
     RUNNING,
