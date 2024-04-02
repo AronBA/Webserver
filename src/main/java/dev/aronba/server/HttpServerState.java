@@ -1,6 +1,6 @@
 package dev.aronba.server;
 
-public enum ServerState {
+public enum HttpServerState {
     RUNNING,
     TERMINATING,
     STOPPED,

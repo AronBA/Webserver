@@ -16,6 +16,6 @@ public class HttpRequest {
     HttpMethod httpMethod;
     String httpVersion;
     String requestUrl;
-    Map<String,String> header;
+    Map<String, String> header;
     String body;
 }

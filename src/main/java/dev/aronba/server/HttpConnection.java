@@ -1,9 +1,9 @@
 package dev.aronba.server;
 
+import dev.aronba.server.exception.RequestHandlerException;
 import dev.aronba.server.http.HttpMethod;
 import dev.aronba.server.http.HttpRequest;
 import dev.aronba.server.http.HttpResponse;
-import dev.aronba.server.requestHandler.DefaultNotFoundHandler;
 import dev.aronba.server.requestHandler.DefaultStaticContentHandler;
 import dev.aronba.server.requestHandler.RequestHandler;
 import org.slf4j.Logger;
@@ -20,9 +20,9 @@ public class HttpConnection {
     private static final Logger logger = LoggerFactory.getLogger(HttpConnection.class);
     private final Socket socket;
     private HttpRequest httpRequest;
-
     private InputStream inputStream;
     private OutputStream outputStream;
+    private RequestHandler requestHandler;
 
     public HttpConnection(Socket socket) {
         this.socket = socket;
@@ -35,7 +35,8 @@ public class HttpConnection {
                 this.inputStream.close();
                 this.outputStream.close();
                 this.socket.close();
-            } catch (IOException e) {
+            } catch (IOException ignored) {
+                // this Error can be ignored
             }
         }
     }
@@ -46,20 +47,23 @@ public class HttpConnection {
         this.httpRequest = parseRequest();
         String key = getKey();
         RequestHandler requestHandler = httpHandlerMap.get(key);
+        HttpResponse httpResponse;
 
-
-        // if no handler is found try to load static content
+        // if no overwritten handler is defined use a static content handler
         if (requestHandler == null) {
-            requestHandler = new DefaultStaticContentHandler();
+            this.requestHandler = new DefaultStaticContentHandler();
         }
-        HttpResponse httpResponse = requestHandler.handle(httpRequest);
 
-        // if there is no response send 404
-        if (httpResponse == null) {
-            requestHandler = new DefaultNotFoundHandler();
-            httpResponse = requestHandler.handle(httpRequest);
+        // handle request and send response
+        try {
+            logger.debug("used request handler: " + requestHandler);
+            httpResponse = this.requestHandler.handle(httpRequest);
+        } catch (RequestHandlerException e) {
+            logger.error("an error has occurred while handling the request: " + e.getMessage());
+            httpResponse = HttpResponse.INTERNAL_SERVER_ERROR(e.getMessage());
         }
-        logger.debug("used request handler: " + requestHandler);
+
+        logger.debug("responded with: " + httpResponse);
         sendResponse(httpResponse);
     }
 
@@ -68,7 +72,7 @@ public class HttpConnection {
 
             StringBuilder responseBuilder = new StringBuilder();
 
-             this.outputStream = this.socket.getOutputStream();
+            this.outputStream = this.socket.getOutputStream();
 
             responseBuilder.append(httpResponse.getHttpVersion())
                     .append(" ")
@@ -100,7 +104,7 @@ public class HttpConnection {
     private HttpRequest parseRequest() {
         logger.debug("started parsing request for: " + this.socket.getInetAddress());
         try {
-             this.inputStream = socket.getInputStream();
+            this.inputStream = socket.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
             String requestLine = reader.readLine();

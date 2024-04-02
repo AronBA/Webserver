@@ -51,7 +51,6 @@ public enum HttpHeader {
     X_FORWARDED_HOST("X-Forwarded-Host"),
     X_FORWARDED_PROTO("X-Forwarded-Proto");
 
+    public static final Map<String, String> DEFAULT_HEADER = new HashMap<>();
     private final String headerName;
-
-    public static final Map<String,String> DEFAULT_HEADER = new HashMap<>();
 }

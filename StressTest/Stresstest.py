@@ -1,9 +1,10 @@
-import requests
 import concurrent.futures
+import requests
 
 SERVER_URL = 'http://localhost:8000/'
 
 NUM_REQUESTS = 100
+
 
 def send_request(url):
     try:
@@ -11,6 +12,7 @@ def send_request(url):
         print(f"Response from {url}: {response.status_code}")
     except requests.exceptions.RequestException as e:
         print(f"Error occurred during request to {url}: {e}")
+
 
 def main():
     urls = [SERVER_URL for _ in range(NUM_REQUESTS)]
@@ -23,6 +25,7 @@ def main():
                 future.result()
             except Exception as exc:
                 print(f"Request to {url} generated an exception: {exc}")
+
 
 if __name__ == "__main__":
     main()
