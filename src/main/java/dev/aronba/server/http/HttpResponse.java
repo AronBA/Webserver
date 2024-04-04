@@ -17,17 +17,19 @@ public class HttpResponse {
     Map<String, String> header;
 
 
+    public static HttpResponse NO_CONTENT() {
+        return null;
+    }
 
-    public static HttpResponse NO_CONTENT(){
+    public static HttpResponse NOT_FOUND() {
         return null;
-    };
-    public static HttpResponse NOT_FOUND(){
-        return null;
-    };
-    public static HttpResponse INTERNAL_SERVER_ERROR(String errorMessage){
+    }
+
+    public static HttpResponse INTERNAL_SERVER_ERROR(String errorMessage) {
 
         UUID traceID = UUID.randomUUID();
 
         return null;
-    };
+    }
+
 }

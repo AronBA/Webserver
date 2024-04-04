@@ -5,8 +5,6 @@ import dev.aronba.server.exception.RequestHandlerException;
 import dev.aronba.server.http.HttpRequest;
 import dev.aronba.server.http.HttpResponse;
 
-import java.util.Optional;
-
 @FunctionalInterface
 public interface RequestHandler {
 

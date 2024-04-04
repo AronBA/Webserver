@@ -1,6 +1,6 @@
 package dev.aronba.server.requestHandler;
 
-import dev.aronba.server.HttpServerConfig;
+import dev.aronba.server.ServerConfigReader;
 import dev.aronba.server.exception.RequestHandlerException;
 import dev.aronba.server.http.*;
 import org.slf4j.Logger;
@@ -14,7 +14,6 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 public class DefaultStaticContentHandler implements RequestHandler {
 
@@ -32,7 +31,7 @@ public class DefaultStaticContentHandler implements RequestHandler {
             if (resourceURL == null) {
                 logger.warn("File couldn't be found on server: " + fileName);
 
-                String body = HttpServerConfig.DEFAULT_NOT_FOUND_BODY;
+                String body = ServerConfigReader.DEFAULT_NOT_FOUND_BODY;
 
                 Map<String, String> header = new HashMap<>();
                 header.put(HttpHeader.DATE.getHeaderName(), LocalDateTime.now().toString());
@@ -47,12 +46,7 @@ public class DefaultStaticContentHandler implements RequestHandler {
             String body = Files.readString(filePath);
 
 
-            return HttpResponse.builder()
-                    .httpVersion(HttpVersion.HTTP_1_1)
-                    .httpStatusCode(HttpStatusCode.OK)
-                    .body(body)
-                    .header(HttpHeader.DEFAULT_HEADER)
-                    .build();
+            return HttpResponse.builder().httpVersion(HttpVersion.HTTP_1_1).httpStatusCode(HttpStatusCode.OK).body(body).header(HttpHeader.DEFAULT_HEADER).build();
         } catch (Exception e) {
             logger.error("something went wrong during static content handling" + e.getMessage());
             throw new RequestHandlerException();

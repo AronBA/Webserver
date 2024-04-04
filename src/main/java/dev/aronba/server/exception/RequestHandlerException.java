@@ -1,4 +1,4 @@
 package dev.aronba.server.exception;
 
-public class RequestHandlerException extends Exception{
+public class RequestHandlerException extends Exception {
 }

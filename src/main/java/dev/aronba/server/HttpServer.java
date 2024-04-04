@@ -32,7 +32,6 @@ public class HttpServer {
     private HttpServerState state;
 
 
-
     public HttpServer(InetSocketAddress inetSocketAddress) throws IOException {
         if (inetSocketAddress == null) {
             throw new IllegalArgumentException("InetSocketAddress cannot be null");
@@ -44,18 +43,6 @@ public class HttpServer {
         this.serverSocket = new ServerSocket(inetSocketAddress.getPort());
     }
 
-
-    //todo -> give server the option to read out a config file
-    public HttpServer(InetSocketAddress inetSocketAddress,HttpServerConfig httpServerConfig) throws IOException {
-        if (inetSocketAddress == null) {
-            throw new IllegalArgumentException("InetSocketAddress cannot be null");
-        }
-        this.inetSocketAddress = inetSocketAddress;
-        this.dispatcher = new Dispatcher(this);
-        this.state = HttpServerState.STOPPED;
-        this.allServerConnections = Collections.synchronizedSet(new HashSet<>());
-        this.serverSocket = new ServerSocket(inetSocketAddress.getPort());
-    }
 
     public void start() {
         logger.info("HttpServer starting");
@@ -97,8 +84,8 @@ public class HttpServer {
     /**
      * Overrides the default {@link RequestHandler} of the webserver when a certain resource is requested
      *
-     * @param httpMethod the method used to request the resource
-     * @param url the url of the resource
+     * @param httpMethod     the method used to request the resource
+     * @param url            the url of the resource
      * @param requestHandler a custom implementation of the {@link RequestHandler} interface
      */
     public void addRequestMapping(HttpMethod httpMethod, String url, RequestHandler requestHandler) {

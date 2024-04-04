@@ -1,0 +1,7 @@
+server:
+  listen:
+    - 8080
+  root: /var/www/html
+  index: index.html index.htm
+  error_logs: /var/log/error.log
+  error_page: 404.html
