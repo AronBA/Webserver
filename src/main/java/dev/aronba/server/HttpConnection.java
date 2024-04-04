@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,9 +59,9 @@ public class HttpConnection {
         try {
             logger.debug("used request handler: " + requestHandler);
             httpResponse = this.requestHandler.handle(httpRequest);
-        } catch (RequestHandlerException e) {
-            logger.error("an error has occurred while handling the request: " + e.getMessage());
-            httpResponse = HttpResponse.INTERNAL_SERVER_ERROR(e.getMessage());
+        } catch (Exception e){
+            logger.error("an unexpected error has occurred while handling the request: " + Arrays.toString(e.getStackTrace()));
+            httpResponse = HttpResponse.INTERNAL_SERVER_ERROR();
         }
 
         logger.debug("responded with: " + httpResponse);

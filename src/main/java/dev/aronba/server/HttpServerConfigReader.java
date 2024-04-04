@@ -9,33 +9,34 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 
-public class ServerConfigReader {
+public class HttpServerConfigReader {
 
-    public static final String DEFAULT_NOT_FOUND_BODY = "<html>" + "<header>" + "<title>" + "404 Not Found" + "</title>" + "</header>" + "<body>" + "<h1> 404 Here is nothing </h1>" + "</body>" + "</html>";
-    private static final Logger LOG = LoggerFactory.getLogger(ServerConfigReader.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HttpServerConfigReader.class);
     public static int PORT = 0;
     public static String ROOT_DIRECTORY = null;
-    public static String[] VIABLE_INDEX_FILES;
+    public static String INDEX_FILE;
     public static String ERROR_LOG_PATH;
     public static String DEFAULT_ERROR_PAGE_PATH;
     private final String configPath;
 
 
-    public ServerConfigReader(String configPath) {
+    public HttpServerConfigReader(String configPath) {
         this.configPath = configPath;
     }
 
-    public static void printConfig() {
-        System.out.println("listenPort: " + PORT);
-        System.out.println("rootDirectory: " + ROOT_DIRECTORY);
-        System.out.print("indexFiles: ");
-        for (String file : VIABLE_INDEX_FILES) {
-            System.out.print(file + " ");
-        }
-        System.out.println();
-        System.out.println("errorLogPath: " + ERROR_LOG_PATH);
-        System.out.println("errorPage: " + DEFAULT_ERROR_PAGE_PATH);
+
+    public static String getCurrentConfig() {
+        StringBuilder currentConfig = new StringBuilder();
+        currentConfig.append("\n|+++++| SERVER CONFIG |+++++|\n");
+        currentConfig.append("port: ").append(PORT).append("\n");
+        currentConfig.append("rootDirectory: ").append(ROOT_DIRECTORY).append("\n");
+        currentConfig.append("viable indexFiles: ").append(INDEX_FILE).append("\n");
+        currentConfig.append("errorLogPath: ").append(ERROR_LOG_PATH).append("\n");
+        currentConfig.append("errorPage: ").append(DEFAULT_ERROR_PAGE_PATH).append("\n");
+        currentConfig.append("|+++++++++++++++++++++++++++|");
+        return currentConfig.toString();
     }
+
 
     public void loadConfig() throws IOException {
         try {
@@ -45,11 +46,12 @@ public class ServerConfigReader {
 
             PORT = (int) config.get("listen");
             ROOT_DIRECTORY = (String) config.get("root");
-            VIABLE_INDEX_FILES = ((String) config.get("index")).split(" ");
+            INDEX_FILE = (String) config.get("index");
             ERROR_LOG_PATH = (String) config.get("error_logs");
             DEFAULT_ERROR_PAGE_PATH = (String) config.get("error_page");
 
             fis.close();
+            LOG.info(HttpServerConfigReader.getCurrentConfig());
         } catch (FileNotFoundException e) {
             LOG.error("Configuration file not found. Searched path: " + this.configPath);
             throw e;
