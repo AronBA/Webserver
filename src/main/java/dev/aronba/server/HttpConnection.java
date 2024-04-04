@@ -46,11 +46,11 @@ public class HttpConnection {
 
         this.httpRequest = parseRequest();
         String key = getKey();
-        RequestHandler requestHandler = httpHandlerMap.get(key);
+        this.requestHandler = httpHandlerMap.get(key);
         HttpResponse httpResponse;
 
         // if no overwritten handler is defined use a static content handler
-        if (requestHandler == null) {
+        if (this.requestHandler == null) {
             this.requestHandler = new DefaultStaticContentHandler();
         }
 
