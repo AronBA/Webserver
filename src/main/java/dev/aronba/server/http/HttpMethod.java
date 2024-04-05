@@ -1,11 +1,8 @@
 package dev.aronba.server.http;
 
 
-import lombok.Getter;
-import lombok.ToString;
 
-@Getter
-@ToString
+
 public enum HttpMethod {
     GET,
     POST,
@@ -14,5 +11,9 @@ public enum HttpMethod {
     HEAD,
     OPTIONS,
     TRACE,
-    CONNECT
+    CONNECT;
+
+    public String toString() {
+        return "HttpMethod()";
+    }
 }

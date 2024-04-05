@@ -3,7 +3,6 @@ package dev.aronba.server;
 import dev.aronba.server.http.*;
 import dev.aronba.server.requestHandler.DefaultStaticContentHandler;
 import dev.aronba.server.requestHandler.RequestHandler;
-import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-@Getter
 public class HttpConnection {
     private static final Logger logger = LoggerFactory.getLogger(HttpConnection.class);
     private final Socket socket;
@@ -160,5 +158,29 @@ public class HttpConnection {
         String key = this.httpRequest.getHttpMethod() + "_" + this.httpRequest.getRequestUrl();
         logger.debug("key: " + key);
         return key;
+    }
+
+    public Socket getSocket() {
+        return this.socket;
+    }
+
+    public HttpRequest getHttpRequest() {
+        return this.httpRequest;
+    }
+
+    public HttpResponse getHttpResponse() {
+        return this.httpResponse;
+    }
+
+    public InputStream getInputStream() {
+        return this.inputStream;
+    }
+
+    public OutputStream getOutputStream() {
+        return this.outputStream;
+    }
+
+    public RequestHandler getRequestHandler() {
+        return this.requestHandler;
     }
 }

@@ -1,13 +1,6 @@
 package dev.aronba.server.http;
 
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
-
-@Getter
-@ToString
-@RequiredArgsConstructor
 public enum HttpCacheControl {
 
     NO_CACHE("no-cache"),
@@ -26,4 +19,16 @@ public enum HttpCacheControl {
     NO_CACHE_ONLY_IF_CACHED("no-cache, only-if-cached");
 
     private final String directive;
+
+    private HttpCacheControl(String directive) {
+        this.directive = directive;
+    }
+
+    public String getDirective() {
+        return this.directive;
+    }
+
+    public String toString() {
+        return "HttpCacheControl(directive=" + this.getDirective() + ")";
+    }
 }

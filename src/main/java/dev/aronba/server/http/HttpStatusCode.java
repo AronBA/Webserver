@@ -1,12 +1,8 @@
 package dev.aronba.server.http;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 
-@Getter
-@ToString
-@RequiredArgsConstructor
+
+
 public enum HttpStatusCode {
     CONTINUE(100, "Continue"),
     SWITCHING_PROTOCOLS(101, "Switching Protocols"),
@@ -76,6 +72,23 @@ public enum HttpStatusCode {
 
     private final int code;
     private final String reasonPhrase;
+
+    private HttpStatusCode(int code, String reasonPhrase) {
+        this.code = code;
+        this.reasonPhrase = reasonPhrase;
+    }
+
+    public int getCode() {
+        return this.code;
+    }
+
+    public String getReasonPhrase() {
+        return this.reasonPhrase;
+    }
+
+    public String toString() {
+        return "HttpStatusCode(code=" + this.getCode() + ", reasonPhrase=" + this.getReasonPhrase() + ")";
+    }
 }
 
 

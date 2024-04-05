@@ -2,22 +2,22 @@ package dev.aronba.server;
 
 import dev.aronba.server.exception.InvalidServerStateException;
 import dev.aronba.server.http.HttpMethod;
-import dev.aronba.server.http.HttpRequest;
 import dev.aronba.server.requestHandler.RequestHandler;
-import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-@Getter
 public class HttpServer {
     private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
     private final Map<String, RequestHandler> httpHandlerMap = new ConcurrentHashMap<>();
@@ -35,12 +35,13 @@ public class HttpServer {
     public HttpServer(InetSocketAddress inetSocketAddress) throws IOException {
         this(inetSocketAddress, false);
     }
+
     public HttpServer(InetSocketAddress inetSocketAddress, boolean developerMode) throws IOException {
         if (inetSocketAddress == null) {
             throw new IllegalArgumentException("InetSocketAddress cannot be null");
         }
 
-        if (developerMode){
+        if (developerMode) {
             this.fileSystemListener = new FileSystemListener(this);
         }
 
@@ -60,12 +61,11 @@ public class HttpServer {
             this.threadPoolExecutor = Executors.newFixedThreadPool(6);
         }
 
-        if (HttpServerConfigReader.DEVELOPER_MODE){
+        if (HttpServerConfigReader.DEVELOPER_MODE) {
             logger.warn("Developer mode is active");
-            this.fileSystemListenerThread = new Thread(null, fileSystemListener,"FileSystemListener",0,false);
+            this.fileSystemListenerThread = new Thread(null, fileSystemListener, "FileSystemListener", 0, false);
             fileSystemListenerThread.start();
         }
-
 
 
         this.dispatcherThread = new Thread(null, dispatcher, "HTTP-Dispatcher", 0, false);
@@ -126,10 +126,51 @@ public class HttpServer {
         }
         this.httpHandlerMap.put(key, requestHandler);
     }
-    public void scheduleHotReload(){
-        for (HttpConnection connection : allServerConnections){
+
+    public void scheduleHotReload() {
+        for (HttpConnection connection : allServerConnections) {
             connection.reload();
         }
+    }
+
+    public Map<String, RequestHandler> getHttpHandlerMap() {
+        return this.httpHandlerMap;
+    }
+
+    public InetSocketAddress getInetSocketAddress() {
+        return this.inetSocketAddress;
+    }
+
+    public Dispatcher getDispatcher() {
+        return this.dispatcher;
+    }
+
+    public Set<HttpConnection> getAllServerConnections() {
+        return this.allServerConnections;
+    }
+
+    public ServerSocket getServerSocket() {
+        return this.serverSocket;
+    }
+
+    public FileSystemListener getFileSystemListener() {
+        return this.fileSystemListener;
+    }
+
+    public ExecutorService getThreadPoolExecutor() {
+        return this.threadPoolExecutor;
+    }
+
+    public Thread getDispatcherThread() {
+        return this.dispatcherThread;
+    }
+
+    public HttpServerState getState() {
+        return this.state;
+    }
+
+    public Thread getFileSystemListenerThread() {
+        return this.fileSystemListenerThread;
     }
 }
 

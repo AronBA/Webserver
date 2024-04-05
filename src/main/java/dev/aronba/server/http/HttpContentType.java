@@ -1,13 +1,5 @@
 package dev.aronba.server.http;
 
-
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
-
-@Getter
-@ToString
-@RequiredArgsConstructor
 public enum HttpContentType {
 
     TEXT_PLAIN("text/plain"),
@@ -22,4 +14,16 @@ public enum HttpContentType {
     APPLICATION_OCTET_STREAM("application/octet-stream");
 
     private final String contentType;
+
+    private HttpContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    public String getContentType() {
+        return this.contentType;
+    }
+
+    public String toString() {
+        return "HttpContentType(contentType=" + this.getContentType() + ")";
+    }
 }

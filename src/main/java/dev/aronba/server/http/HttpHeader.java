@@ -1,16 +1,11 @@
 package dev.aronba.server.http;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
-@Getter
-@ToString
-@RequiredArgsConstructor
+
 public enum HttpHeader {
     ACCEPT("Accept"),
     ACCEPT_CHARSET("Accept-Charset"),
@@ -53,4 +48,16 @@ public enum HttpHeader {
 
     public static final Map<String, String> DEFAULT_HEADER = new HashMap<>();
     private final String headerName;
+
+    private HttpHeader(String headerName) {
+        this.headerName = headerName;
+    }
+
+    public String getHeaderName() {
+        return this.headerName;
+    }
+
+    public String toString() {
+        return "HttpHeader(headerName=" + this.getHeaderName() + ")";
+    }
 }
