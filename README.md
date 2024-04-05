@@ -2,7 +2,7 @@
 
 Small Webserver Implementation. Do not use, I'm pretty sure it has a lot of security issues 
 
-## usage
+## Usage
 
 The config is written in config.yml which should, but doesn't need to, be in the same directory as the webserver.jar
 
