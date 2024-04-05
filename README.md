@@ -1,6 +1,6 @@
 # Webserver
 
-Small Webserver Implementation
+Small Webserver Implementation. Do not use, I'm pretty sure it has a lot of security issues 
 
 ## usage
 
