@@ -12,6 +12,7 @@ root: C:\Develop\Folder\HttpServer\var\www\html\
 index: index.html
 error_logs: /var/log/error.log
 error_page: error.html
+dev: false
 ```
 
 start the server with:
