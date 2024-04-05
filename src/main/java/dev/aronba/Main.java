@@ -23,7 +23,8 @@ public class Main {
 
         InetSocketAddress inetSocketAddress = new InetSocketAddress(HttpServerConfigReader.PORT);
 
-        HttpServer httpServer = new HttpServer(inetSocketAddress);
+
+        HttpServer httpServer = new HttpServer(inetSocketAddress, HttpServerConfigReader.DEVELOPER_MODE);
         httpServer.start();
 
 

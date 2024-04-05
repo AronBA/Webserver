@@ -1,11 +1,9 @@
 package dev.aronba.server;
 
-import dev.aronba.server.exception.RequestHandlerException;
-import dev.aronba.server.http.HttpMethod;
-import dev.aronba.server.http.HttpRequest;
-import dev.aronba.server.http.HttpResponse;
+import dev.aronba.server.http.*;
 import dev.aronba.server.requestHandler.DefaultStaticContentHandler;
 import dev.aronba.server.requestHandler.RequestHandler;
+import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,10 +15,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+@Getter
 public class HttpConnection {
     private static final Logger logger = LoggerFactory.getLogger(HttpConnection.class);
     private final Socket socket;
     private HttpRequest httpRequest;
+    private HttpResponse httpResponse;
     private InputStream inputStream;
     private OutputStream outputStream;
     private RequestHandler requestHandler;
@@ -29,12 +29,11 @@ public class HttpConnection {
         this.socket = socket;
     }
 
+
     public void close() {
         logger.debug("closing connection for: " + this.socket.getInetAddress());
         if (!this.socket.isClosed()) {
             try {
-                this.inputStream.close();
-                this.outputStream.close();
                 this.socket.close();
             } catch (IOException ignored) {
                 // this Error can be ignored
@@ -48,7 +47,6 @@ public class HttpConnection {
         this.httpRequest = parseRequest();
         String key = getKey();
         this.requestHandler = httpHandlerMap.get(key);
-        HttpResponse httpResponse;
 
         // if no overwritten handler is defined use a static content handler
         if (this.requestHandler == null) {
@@ -58,8 +56,8 @@ public class HttpConnection {
         // handle request and send response
         try {
             logger.debug("used request handler: " + requestHandler);
-            httpResponse = this.requestHandler.handle(httpRequest);
-        } catch (Exception e){
+            this.httpResponse = this.requestHandler.handle(httpRequest);
+        } catch (Exception e) {
             logger.error("an unexpected error has occurred while handling the request: " + Arrays.toString(e.getStackTrace()));
             httpResponse = HttpResponse.INTERNAL_SERVER_ERROR();
         }
@@ -140,6 +138,22 @@ public class HttpConnection {
             return null;
         }
 
+    }
+
+    public void reload() {
+
+
+        try {
+
+            if (socket.isClosed()) {
+                logger.warn("couldn't reload due the fact that the socket was already closed");
+                return;
+            }
+            HttpResponse httpResponse = HttpResponse.builder().httpStatusCode(HttpStatusCode.OK).httpVersion(HttpVersion.HTTP_1_1).header(HttpHeader.DEFAULT_HEADER).body("<script>location.reload(true); </script>").build();
+            sendResponse(httpResponse);
+        } catch (Exception e) {
+            logger.error("something went wrong when trying to reload the request for this request: " + e);
+        }
     }
 
     private String getKey() {

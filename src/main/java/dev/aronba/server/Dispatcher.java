@@ -22,11 +22,18 @@ class Dispatcher implements Runnable {
                 Socket socket = this.httpServer.getServerSocket().accept();
                 logger.info(socket.getInetAddress() + " has connected");
                 this.httpServer.getThreadPoolExecutor().submit(() -> {
-
                     HttpConnection httpConnection = new HttpConnection(socket);
+
+                    this.httpServer.getAllServerConnections().add(httpConnection);
+
                     httpConnection.handle(httpServer.getHttpHandlerMap());
-                    httpConnection.close();
-                    logger.info(socket.getInetAddress() + " has disconnected");
+
+                    if (!HttpServerConfigReader.DEVELOPER_MODE){
+                        httpConnection.close();
+                        this.httpServer.getAllServerConnections().remove(httpConnection);
+                        logger.info(socket.getInetAddress() + " has disconnected");
+                    }
+
 
                 });
 

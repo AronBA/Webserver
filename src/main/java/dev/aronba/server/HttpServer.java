@@ -2,6 +2,7 @@ package dev.aronba.server;
 
 import dev.aronba.server.exception.InvalidServerStateException;
 import dev.aronba.server.http.HttpMethod;
+import dev.aronba.server.http.HttpRequest;
 import dev.aronba.server.requestHandler.RequestHandler;
 import lombok.Getter;
 import org.slf4j.Logger;
@@ -10,10 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -27,15 +25,25 @@ public class HttpServer {
     private final Dispatcher dispatcher;
     private final Set<HttpConnection> allServerConnections;
     private final ServerSocket serverSocket;
+    private FileSystemListener fileSystemListener;
     private ExecutorService threadPoolExecutor;
     private Thread dispatcherThread;
     private HttpServerState state;
+    private Thread fileSystemListenerThread;
 
 
     public HttpServer(InetSocketAddress inetSocketAddress) throws IOException {
+        this(inetSocketAddress, false);
+    }
+    public HttpServer(InetSocketAddress inetSocketAddress, boolean developerMode) throws IOException {
         if (inetSocketAddress == null) {
             throw new IllegalArgumentException("InetSocketAddress cannot be null");
         }
+
+        if (developerMode){
+            this.fileSystemListener = new FileSystemListener(this);
+        }
+
         this.inetSocketAddress = inetSocketAddress;
         this.dispatcher = new Dispatcher(this);
         this.state = HttpServerState.STOPPED;
@@ -45,14 +53,26 @@ public class HttpServer {
 
 
     public void start() {
-        logger.info("HttpServer starting");
+
+        logger.info("HttpServer starting...");
+
         if (threadPoolExecutor == null) {
-            this.threadPoolExecutor = Executors.newFixedThreadPool(4);
+            this.threadPoolExecutor = Executors.newFixedThreadPool(6);
         }
+
+        if (HttpServerConfigReader.DEVELOPER_MODE){
+            logger.warn("Developer mode is active");
+            this.fileSystemListenerThread = new Thread(null, fileSystemListener,"FileSystemListener",0,false);
+            fileSystemListenerThread.start();
+        }
+
+
+
         this.dispatcherThread = new Thread(null, dispatcher, "HTTP-Dispatcher", 0, false);
         this.state = HttpServerState.RUNNING;
         dispatcherThread.start();
         logger.info("HttpServer started and listening on port: " + this.getInetSocketAddress().getPort());
+
     }
 
 
@@ -105,6 +125,11 @@ public class HttpServer {
             throw new IllegalArgumentException("Mapping for " + key + " already exists");
         }
         this.httpHandlerMap.put(key, requestHandler);
+    }
+    public void scheduleHotReload(){
+        for (HttpConnection connection : allServerConnections){
+            connection.reload();
+        }
     }
 }
 

@@ -14,6 +14,7 @@ public class HttpServerConfigReader {
     private static final Logger LOG = LoggerFactory.getLogger(HttpServerConfigReader.class);
     public static int PORT = 0;
     public static String ROOT_DIRECTORY = null;
+    public static boolean DEVELOPER_MODE;
     public static String INDEX_FILE;
     public static String ERROR_LOG_PATH;
     public static String DEFAULT_ERROR_PAGE_PATH;
@@ -25,16 +26,15 @@ public class HttpServerConfigReader {
     }
 
 
-    public static String getCurrentConfig() {
-        StringBuilder currentConfig = new StringBuilder();
-        currentConfig.append("\n|+++++| SERVER CONFIG |+++++|\n");
-        currentConfig.append("port: ").append(PORT).append("\n");
-        currentConfig.append("rootDirectory: ").append(ROOT_DIRECTORY).append("\n");
-        currentConfig.append("viable indexFiles: ").append(INDEX_FILE).append("\n");
-        currentConfig.append("errorLogPath: ").append(ERROR_LOG_PATH).append("\n");
-        currentConfig.append("errorPage: ").append(DEFAULT_ERROR_PAGE_PATH).append("\n");
-        currentConfig.append("|+++++++++++++++++++++++++++|");
-        return currentConfig.toString();
+    public static String getCurrentConfigAsString() {
+        return "\n|+++++| SERVER CONFIG |+++++|\n" +
+                "port: " + PORT + "\n" +
+                "rootDirectory: " + ROOT_DIRECTORY + "\n" +
+                "viable indexFiles: " + INDEX_FILE + "\n" +
+                "errorLogPath: " + ERROR_LOG_PATH + "\n" +
+                "errorPage: " + DEFAULT_ERROR_PAGE_PATH + "\n" +
+                "developer mode: " + DEVELOPER_MODE + "\n" +
+                "|+++++++++++++++++++++++++++|";
     }
 
 
@@ -49,9 +49,9 @@ public class HttpServerConfigReader {
             INDEX_FILE = (String) config.get("index");
             ERROR_LOG_PATH = (String) config.get("error_logs");
             DEFAULT_ERROR_PAGE_PATH = (String) config.get("error_page");
-
+            DEVELOPER_MODE = (boolean) config.get("dev");
             fis.close();
-            LOG.info(HttpServerConfigReader.getCurrentConfig());
+            LOG.info(HttpServerConfigReader.getCurrentConfigAsString());
         } catch (FileNotFoundException e) {
             LOG.error("Configuration file not found. Searched path: " + this.configPath);
             throw e;
