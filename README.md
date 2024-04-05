@@ -35,9 +35,11 @@ It ain't much but it's honest work.
 ### 0% Test coverage
 If it works it works
 
+### hot reload
+change your html and watch it reload in real time (only in dev mode).
+Sometimes it crashes but don't worry it's very safe 😃
 ### planned Features:
 - standalone and dependency version
-- dev mode which reloads changed webpages
 - tests
 - 
   
