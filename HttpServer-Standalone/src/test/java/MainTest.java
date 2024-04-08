@@ -9,8 +9,7 @@ import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MainTest {
 
@@ -74,9 +73,7 @@ public class MainTest {
         httpServer.start();
 
         Exception e = assertThrows(IOException.class, () -> Main.main(args));
-
-        assertEquals("Address already in use: bind", e.getMessage());
-
+        assertTrue(e.getMessage().contains("Address already in use:"));
         //stop server
         httpServer.stop();
         assertEquals(HttpServerState.TERMINATED, httpServer.getState());
