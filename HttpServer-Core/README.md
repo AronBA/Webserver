@@ -12,7 +12,7 @@ import dev.aronba.server.HttpServerConfigReader;
 
 public void startUp() {
 
-    HttpServerConfigReader httpServerConfigReader = new HttpServerConfigReader("url/to/config");
+    HttpServerConfigReader httpServerConfigReader = new HttpServerConfigReader("path/to/config");
     httpServerConfigReader.loadConfig();
     
     // start server below

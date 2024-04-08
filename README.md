@@ -2,9 +2,19 @@
 
 Small Webserver Implementation. Do not use, I'm pretty sure it has a lot of security issues.
 Use the Standalone version to use it out of the box or use the Core version to use it as Dependency in other Projects.
+
+## Building locally
+To build locally use this command. It will generate the standalone and the core version in their modules
+```shell
+git clone https://github.com/AronBA/Webserver.git
+cd Webserver
+mvn clean install
+```
+
 ## Usage
 
-The config is written in config.yml which should, but doesn't need to, be in the same directory as the webserver.jar
+The config is written in config.yml which should, but doesn't need to, be in the same directory as the webserver.jar  
+An example for the structure is in the var directory in this project. Make sure to place the standalone-jar into this dir before trying.
 
 ```yml
 listen: 8080
