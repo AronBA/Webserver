@@ -51,6 +51,7 @@ public class HttpServer {
         this.allServerConnections = Collections.synchronizedSet(new HashSet<>());
         this.serverSocket = new ServerSocket(inetSocketAddress.getPort());
     }
+
     private String getWelcomeString() {
         return """
                                       
@@ -103,7 +104,7 @@ public class HttpServer {
         this.state = HttpServerState.TERMINATING;
 
 
-        if (HttpServerConfigReader.DEVELOPER_MODE && this.fileSystemListenerThread.isAlive()){
+        if (HttpServerConfigReader.DEVELOPER_MODE && this.fileSystemListenerThread.isAlive()) {
             this.fileSystemListenerThread.interrupt();
         }
         if (dispatcherThread != null && dispatcherThread != Thread.currentThread()) {
@@ -116,7 +117,7 @@ public class HttpServer {
             allServerConnections.clear();
         }
 
-        if (!this.serverSocket.isClosed()){
+        if (!this.serverSocket.isClosed()) {
             try {
                 this.serverSocket.close();
             } catch (IOException ignore) {
@@ -200,6 +201,10 @@ public class HttpServer {
 
     public Thread getFileSystemListenerThread() {
         return this.fileSystemListenerThread;
+    }
+
+    public ChangeDetectionService getChangeDetectionService() {
+        return this.changeDetectionService;
     }
 }
 
