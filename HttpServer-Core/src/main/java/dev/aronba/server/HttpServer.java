@@ -31,10 +31,10 @@ public class HttpServer {
     private volatile HttpServerState state;
     private Thread fileSystemListenerThread;
 
-
     public HttpServer(InetSocketAddress inetSocketAddress) throws IOException {
         this(inetSocketAddress, false);
     }
+
 
     public HttpServer(InetSocketAddress inetSocketAddress, boolean developerMode) throws IOException {
         if (inetSocketAddress == null) {
@@ -51,11 +51,30 @@ public class HttpServer {
         this.allServerConnections = Collections.synchronizedSet(new HashSet<>());
         this.serverSocket = new ServerSocket(inetSocketAddress.getPort());
     }
-
+    private String getWelcomeString() {
+        return """
+                                      
+                                      |----------------|
+                |+++++++++++++++++++++| Kek Web Server |+++++++++++++++++++++|\s
+                                      |----------------|
+                              ___  __    ___       __   ________     \s
+                             |\\  \\|\\  \\ |\\  \\     |\\  \\|\\   ____\\    \s
+                             \\ \\  \\/  /|\\ \\  \\    \\ \\  \\ \\  \\___|_   \s
+                              \\ \\   ___  \\ \\  \\  __\\ \\  \\ \\_____  \\  \s
+                               \\ \\  \\\\ \\  \\ \\  \\|\\__\\_\\  \\|____|\\  \\ \s
+                                \\ \\__\\\\ \\__\\ \\____________\\____\\_\\  \\\s
+                                 \\|__| \\|__|\\|____________|\\_________\\
+                                                          \\|_________|
+                |++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|\s
+                 """
+                + HttpServerConfigReader.getCurrentConfigAsString() +
+                "|++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++| "
+                ;
+    }
 
     public void start() {
 
-        logger.info("HttpServer starting...");
+        logger.info("HttpServer starting");
 
         if (threadPoolExecutor == null) {
             this.threadPoolExecutor = Executors.newFixedThreadPool(6);
@@ -71,7 +90,7 @@ public class HttpServer {
         this.dispatcherThread = new Thread(null, dispatcherService, "HTTP-Dispatcher", 0, false);
         this.state = HttpServerState.RUNNING;
         dispatcherThread.start();
-        logger.info("HttpServer started and listening on port: " + this.getInetSocketAddress().getPort());
+        logger.info(getWelcomeString());
 
     }
 
