@@ -35,9 +35,9 @@ public class MainTest {
         mockedConfig.createNewFile();
         String someString = """
                 listen: 8080
-                root: C:\\Develop\\Folder\\HttpServer\\var\\www\\html\\
+                root: 
                 index: index.html
-                error_logs : C:\\Develop\\Folder\\HttpServer\\var\\log\\httpserver.log
+                error_logs : 
                 error_page: error.html
                 dev: false
                                 """;
@@ -59,9 +59,9 @@ public class MainTest {
         mockedConfig.createNewFile();
         String someString = """
                 listen: 8080
-                root: C:\\Develop\\Folder\\HttpServer\\var\\www\\html\\
+                root: 
                 index: index.html
-                error_logs : C:\\Develop\\Folder\\HttpServer\\var\\log\\httpserver.log
+                error_logs : 
                 error_page: error.html
                 dev: false
                                 """;
