@@ -28,7 +28,7 @@ public class HttpServer {
     private ChangeDetectionService changeDetectionService;
     private ExecutorService threadPoolExecutor;
     private Thread dispatcherThread;
-    private HttpServerState state;
+    private volatile HttpServerState state;
     private Thread fileSystemListenerThread;
 
 
