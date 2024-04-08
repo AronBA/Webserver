@@ -22,10 +22,10 @@ public class HttpServer {
     private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
     private final Map<String, RequestHandler> httpHandlerMap = new ConcurrentHashMap<>();
     private final InetSocketAddress inetSocketAddress;
-    private final Dispatcher dispatcher;
+    private final DispatcherService dispatcherService;
     private final Set<HttpConnection> allServerConnections;
     private final ServerSocket serverSocket;
-    private FileSystemListener fileSystemListener;
+    private ChangeDetectionService changeDetectionService;
     private ExecutorService threadPoolExecutor;
     private Thread dispatcherThread;
     private HttpServerState state;
@@ -42,11 +42,11 @@ public class HttpServer {
         }
 
         if (developerMode) {
-            this.fileSystemListener = new FileSystemListener(this);
+            this.changeDetectionService = new ChangeDetectionService(this);
         }
 
         this.inetSocketAddress = inetSocketAddress;
-        this.dispatcher = new Dispatcher(this);
+        this.dispatcherService = new DispatcherService(this);
         this.state = HttpServerState.STOPPED;
         this.allServerConnections = Collections.synchronizedSet(new HashSet<>());
         this.serverSocket = new ServerSocket(inetSocketAddress.getPort());
@@ -63,12 +63,12 @@ public class HttpServer {
 
         if (HttpServerConfigReader.DEVELOPER_MODE) {
             logger.warn("Developer mode is active");
-            this.fileSystemListenerThread = new Thread(null, fileSystemListener, "FileSystemListener", 0, false);
+            this.fileSystemListenerThread = new Thread(null, changeDetectionService, "FileSystemListener", 0, false);
             fileSystemListenerThread.start();
         }
 
 
-        this.dispatcherThread = new Thread(null, dispatcher, "HTTP-Dispatcher", 0, false);
+        this.dispatcherThread = new Thread(null, dispatcherService, "HTTP-Dispatcher", 0, false);
         this.state = HttpServerState.RUNNING;
         dispatcherThread.start();
         logger.info("HttpServer started and listening on port: " + this.getInetSocketAddress().getPort());
@@ -141,8 +141,8 @@ public class HttpServer {
         return this.inetSocketAddress;
     }
 
-    public Dispatcher getDispatcher() {
-        return this.dispatcher;
+    public DispatcherService getDispatcher() {
+        return this.dispatcherService;
     }
 
     public Set<HttpConnection> getAllServerConnections() {
@@ -153,8 +153,8 @@ public class HttpServer {
         return this.serverSocket;
     }
 
-    public FileSystemListener getFileSystemListener() {
-        return this.fileSystemListener;
+    public ChangeDetectionService getFileSystemListener() {
+        return this.changeDetectionService;
     }
 
     public ExecutorService getThreadPoolExecutor() {

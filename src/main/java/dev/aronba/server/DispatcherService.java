@@ -6,11 +6,11 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.net.Socket;
 
-class Dispatcher implements Runnable {
-    private static final Logger logger = LoggerFactory.getLogger(Dispatcher.class);
+class DispatcherService implements Runnable {
+    private static final Logger logger = LoggerFactory.getLogger(DispatcherService.class);
     private final HttpServer httpServer;
 
-    public Dispatcher(HttpServer httpServer) {
+    public DispatcherService(HttpServer httpServer) {
         this.httpServer = httpServer;
     }
 
