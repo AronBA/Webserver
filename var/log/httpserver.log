@@ -1,0 +1,174 @@
+13:31:10.016 [HTTP-Dispatcher] INFO  dev.aronba.server.DispatcherService - /0:0:0:0:0:0:0:1 has connected
+13:31:10.035 [pool-1-thread-1] ERROR d.a.s.requestHandler.RequestHandler - something went wrong during static content handling: [java.base/sun.nio.fs.WindowsException.translateToIOException(WindowsException.java:85), java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:103), java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:108), java.base/sun.nio.fs.WindowsFileSystemProvider.newByteChannel(WindowsFileSystemProvider.java:234), java.base/java.nio.file.Files.newByteChannel(Files.java:379), java.base/java.nio.file.Files.newByteChannel(Files.java:431), java.base/java.nio.file.Files.readAllBytes(Files.java:3268), java.base/java.nio.file.Files.readString(Files.java:3346), java.base/java.nio.file.Files.readString(Files.java:3305), dev.aronba.server.requestHandler.DefaultStaticContentHandler.handle(DefaultStaticContentHandler.java:27), dev.aronba.server.HttpConnection.handle(HttpConnection.java:57), dev.aronba.server.DispatcherService.lambda$run$0(DispatcherService.java:29), java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572), java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317), java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144), java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642), java.base/java.lang.Thread.run(Thread.java:1583)]
+13:31:10.035 [pool-1-thread-1] ERROR dev.aronba.server.HttpConnection - an unexpected error has occurred while handling the request: [dev.aronba.server.requestHandler.DefaultStaticContentHandler.handle(DefaultStaticContentHandler.java:32), dev.aronba.server.HttpConnection.handle(HttpConnection.java:57), dev.aronba.server.DispatcherService.lambda$run$0(DispatcherService.java:29), java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572), java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317), java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144), java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642), java.base/java.lang.Thread.run(Thread.java:1583)]
+13:31:10.046 [pool-1-thread-1] INFO  dev.aronba.server.DispatcherService - /0:0:0:0:0:0:0:1 has disconnected
+13:49:23.377 [main] INFO  d.a.server.HttpServerConfigReader - set up logger
+13:49:23.380 [main] INFO  d.a.server.HttpServerConfigReader - Loaded config
+13:49:23.390 [main] INFO  dev.aronba.server.HttpServer - HttpServer starting
+13:49:23.392 [HTTP-Dispatcher] INFO  dev.aronba.server.DispatcherService - Dispatch Thread started and listening
+13:49:23.406 [main] INFO  dev.aronba.server.HttpServer - 
+                      |----------------|
+|+++++++++++++++++++++| Kek Web Server |+++++++++++++++++++++| 
+                      |----------------|
+              ___  __    ___       __   ________      
+             |\  \|\  \ |\  \     |\  \|\   ____\     
+             \ \  \/  /|\ \  \    \ \  \ \  \___|_    
+              \ \   ___  \ \  \  __\ \  \ \_____  \   
+               \ \  \\ \  \ \  \|\__\_\  \|____|\  \  
+                \ \__\\ \__\ \____________\____\_\  \ 
+                 \|__| \|__|\|____________|\_________\
+                                          \|_________|
+|++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++| 
+port: 8080
+rootDirectory: C:\Develop\Folder\HttpServer\var\www\html\
+viable indexFiles: index.html
+errorLogPath: C:\Develop\Folder\HttpServer\var\log\httpserver.log
+errorPage: error.html
+developer mode: false
+|++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++| 
+14:30:55.686 [main] INFO  d.a.server.HttpServerConfigReader - set up logger
+14:30:55.690 [main] INFO  d.a.server.HttpServerConfigReader - Loaded config
+14:30:55.706 [main] INFO  dev.aronba.server.HttpServer - HttpServer starting
+14:30:55.708 [HTTP-Dispatcher] INFO  dev.aronba.server.DispatcherService - Dispatch Thread started and listening
+14:30:55.719 [main] INFO  dev.aronba.server.HttpServer - 
+                      |----------------|
+|+++++++++++++++++++++| Kek Web Server |+++++++++++++++++++++| 
+                      |----------------|
+              ___  __    ___       __   ________      
+             |\  \|\  \ |\  \     |\  \|\   ____\     
+             \ \  \/  /|\ \  \    \ \  \ \  \___|_    
+              \ \   ___  \ \  \  __\ \  \ \_____  \   
+               \ \  \\ \  \ \  \|\__\_\  \|____|\  \  
+                \ \__\\ \__\ \____________\____\_\  \ 
+                 \|__| \|__|\|____________|\_________\
+                                          \|_________|
+|++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++| 
+port: 8080
+rootDirectory: C:\Develop\Folder\HttpServer\var\www\html\
+viable indexFiles: index.html
+errorLogPath: C:\Develop\Folder\HttpServer\var\log\httpserver.log
+errorPage: error.html
+developer mode: false
+|++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++| 
+14:32:46.128 [main] INFO  d.a.server.HttpServerConfigReader - set up logger
+14:32:46.129 [main] INFO  d.a.server.HttpServerConfigReader - Loaded config
+14:33:53.613 [main] INFO  d.a.server.HttpServerConfigReader - set up logger
+14:33:53.614 [main] INFO  d.a.server.HttpServerConfigReader - Loaded config
+14:34:19.256 [main] INFO  d.a.server.HttpServerConfigReader - set up logger
+14:34:19.257 [main] INFO  d.a.server.HttpServerConfigReader - Loaded config
+14:34:19.259 [main] INFO  dev.aronba.server.HttpServer - HttpServer shutdown initialized
+14:35:49.223 [main] INFO  d.a.server.HttpServerConfigReader - set up logger
+14:35:49.224 [main] INFO  d.a.server.HttpServerConfigReader - Loaded config
+14:35:49.225 [main] INFO  dev.aronba.server.HttpServer - HttpServer shutdown initialized
+14:45:00.099 [main] INFO  d.a.server.HttpServerConfigReader - set up logger
+14:45:00.099 [main] INFO  d.a.server.HttpServerConfigReader - Loaded config
+14:45:00.101 [main] INFO  dev.aronba.server.HttpServer - HttpServer shutdown initialized
+14:45:00.101 [main] INFO  dev.aronba.server.HttpServer - HttpServer terminated
+14:45:03.084 [main] INFO  d.a.server.HttpServerConfigReader - set up logger
+14:45:03.089 [main] INFO  d.a.server.HttpServerConfigReader - Loaded config
+14:45:03.092 [main] INFO  dev.aronba.server.HttpServer - HttpServer starting
+14:45:03.094 [HTTP-Dispatcher] INFO  dev.aronba.server.DispatcherService - Dispatch Thread started and listening
+14:45:03.102 [main] INFO  dev.aronba.server.HttpServer - 
+                      |----------------|
+|+++++++++++++++++++++| Kek Web Server |+++++++++++++++++++++| 
+                      |----------------|
+              ___  __    ___       __   ________      
+             |\  \|\  \ |\  \     |\  \|\   ____\     
+             \ \  \/  /|\ \  \    \ \  \ \  \___|_    
+              \ \   ___  \ \  \  __\ \  \ \_____  \   
+               \ \  \\ \  \ \  \|\__\_\  \|____|\  \  
+                \ \__\\ \__\ \____________\____\_\  \ 
+                 \|__| \|__|\|____________|\_________\
+                                          \|_________|
+|++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++| 
+port: 8080
+rootDirectory: C:\Develop\Folder\HttpServer\var\www\html\
+viable indexFiles: index.html
+errorLogPath: C:\Develop\Folder\HttpServer\var\log\httpserver.log
+errorPage: error.html
+developer mode: false
+|++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++| 
+14:45:03.107 [main] INFO  dev.aronba.server.HttpServer - HttpServer shutdown initialized
+14:45:03.107 [main] INFO  dev.aronba.server.HttpServer - HttpServer terminated
+14:45:07.655 [main] INFO  d.a.server.HttpServerConfigReader - set up logger
+14:45:07.660 [main] INFO  d.a.server.HttpServerConfigReader - Loaded config
+14:45:07.665 [main] INFO  dev.aronba.server.HttpServer - HttpServer starting
+14:45:07.666 [HTTP-Dispatcher] INFO  dev.aronba.server.DispatcherService - Dispatch Thread started and listening
+14:45:07.675 [main] INFO  dev.aronba.server.HttpServer - 
+                      |----------------|
+|+++++++++++++++++++++| Kek Web Server |+++++++++++++++++++++| 
+                      |----------------|
+              ___  __    ___       __   ________      
+             |\  \|\  \ |\  \     |\  \|\   ____\     
+             \ \  \/  /|\ \  \    \ \  \ \  \___|_    
+              \ \   ___  \ \  \  __\ \  \ \_____  \   
+               \ \  \\ \  \ \  \|\__\_\  \|____|\  \  
+                \ \__\\ \__\ \____________\____\_\  \ 
+                 \|__| \|__|\|____________|\_________\
+                                          \|_________|
+|++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++| 
+port: 8080
+rootDirectory: C:\Develop\Folder\HttpServer\var\www\html\
+viable indexFiles: index.html
+errorLogPath: C:\Develop\Folder\HttpServer\var\log\httpserver.log
+errorPage: error.html
+developer mode: false
+|++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++| 
+14:45:07.680 [main] INFO  dev.aronba.server.HttpServer - HttpServer shutdown initialized
+14:45:07.680 [main] INFO  dev.aronba.server.HttpServer - HttpServer terminated
+14:45:07.685 [main] ERROR d.a.server.HttpServerConfigReader - Configuration file not found. Searched path: this/is/a/wrong/path
+14:47:51.922 [main] INFO  d.a.server.HttpServerConfigReader - set up logger
+14:47:51.926 [main] INFO  d.a.server.HttpServerConfigReader - Loaded config
+14:47:51.929 [main] INFO  dev.aronba.server.HttpServer - HttpServer starting
+14:47:51.930 [HTTP-Dispatcher] INFO  dev.aronba.server.DispatcherService - Dispatch Thread started and listening
+14:47:51.938 [main] INFO  dev.aronba.server.HttpServer - 
+                      |----------------|
+|+++++++++++++++++++++| Kek Web Server |+++++++++++++++++++++| 
+                      |----------------|
+              ___  __    ___       __   ________      
+             |\  \|\  \ |\  \     |\  \|\   ____\     
+             \ \  \/  /|\ \  \    \ \  \ \  \___|_    
+              \ \   ___  \ \  \  __\ \  \ \_____  \   
+               \ \  \\ \  \ \  \|\__\_\  \|____|\  \  
+                \ \__\\ \__\ \____________\____\_\  \ 
+                 \|__| \|__|\|____________|\_________\
+                                          \|_________|
+|++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++| 
+port: 8080
+rootDirectory: C:\Develop\Folder\HttpServer\var\www\html\
+viable indexFiles: index.html
+errorLogPath: C:\Develop\Folder\HttpServer\var\log\httpserver.log
+errorPage: error.html
+developer mode: false
+|++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++| 
+14:47:51.943 [main] INFO  dev.aronba.server.HttpServer - HttpServer shutdown initialized
+14:47:51.943 [main] INFO  dev.aronba.server.HttpServer - HttpServer terminated
+14:47:51.944 [HTTP-Dispatcher] ERROR dev.aronba.server.DispatcherService - java.net.SocketException: Socket closed
+14:47:51.947 [main] ERROR d.a.server.HttpServerConfigReader - Configuration file not found. Searched path: this/is/a/wrong/path
+14:47:51.950 [main] INFO  dev.aronba.server.HttpServer - HttpServer starting
+14:47:51.951 [main] INFO  dev.aronba.server.HttpServer - 
+                      |----------------|
+|+++++++++++++++++++++| Kek Web Server |+++++++++++++++++++++| 
+                      |----------------|
+              ___  __    ___       __   ________      
+             |\  \|\  \ |\  \     |\  \|\   ____\     
+             \ \  \/  /|\ \  \    \ \  \ \  \___|_    
+              \ \   ___  \ \  \  __\ \  \ \_____  \   
+               \ \  \\ \  \ \  \|\__\_\  \|____|\  \  
+                \ \__\\ \__\ \____________\____\_\  \ 
+                 \|__| \|__|\|____________|\_________\
+                                          \|_________|
+|++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++| 
+port: 8080
+rootDirectory: C:\Develop\Folder\HttpServer\var\www\html\
+viable indexFiles: index.html
+errorLogPath: C:\Develop\Folder\HttpServer\var\log\httpserver.log
+errorPage: error.html
+developer mode: false
+|++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++| 
+14:47:51.951 [HTTP-Dispatcher] INFO  dev.aronba.server.DispatcherService - Dispatch Thread started and listening
+14:47:51.958 [main] INFO  d.a.server.HttpServerConfigReader - set up logger
+14:47:51.959 [main] INFO  d.a.server.HttpServerConfigReader - Loaded config
+14:47:51.959 [main] INFO  dev.aronba.server.HttpServer - HttpServer shutdown initialized
+14:47:51.959 [main] INFO  dev.aronba.server.HttpServer - HttpServer terminated
+14:47:51.959 [HTTP-Dispatcher] ERROR dev.aronba.server.DispatcherService - java.net.SocketException: Socket closed

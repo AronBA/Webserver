@@ -102,21 +102,31 @@ public class HttpServer {
         logger.info("HttpServer shutdown initialized");
         this.state = HttpServerState.TERMINATING;
 
-        try {
-            if (dispatcherThread != null && dispatcherThread != Thread.currentThread()) {
 
-                dispatcherThread.join();
-
-                for (HttpConnection connection : allServerConnections) {
-                    connection.close();
-                }
-                allServerConnections.clear();
-            }
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        if (HttpServerConfigReader.DEVELOPER_MODE && this.fileSystemListenerThread.isAlive()){
+            this.fileSystemListenerThread.interrupt();
         }
+        if (dispatcherThread != null && dispatcherThread != Thread.currentThread()) {
+
+            dispatcherThread.interrupt();
+
+            for (HttpConnection connection : allServerConnections) {
+                connection.close();
+            }
+            allServerConnections.clear();
+        }
+
+        if (!this.serverSocket.isClosed()){
+            try {
+                this.serverSocket.close();
+            } catch (IOException ignore) {
+                // can be ignored
+            }
+        }
+
         this.state = HttpServerState.TERMINATED;
         logger.info("HttpServer terminated");
+
     }
 
 

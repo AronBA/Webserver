@@ -1,0 +1,6 @@
+listen: 8080
+root: C:\Develop\Folder\HttpServer\var\www\html\
+index: index.html
+error_logs : C:\Develop\Folder\HttpServer\var\log\httpserver.log
+error_page: error.html
+dev: false
