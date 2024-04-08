@@ -1,15 +1,14 @@
 # Webserver
-
 Small Webserver Implementation. Do not use, I'm pretty sure it has a lot of security issues.
 Use the Standalone version to use it out of the box or use the Core version to use it as Dependency in other Projects.
 
-## Building locally
-To build locally use this command. It will generate the standalone and the core version in their modules
-```shell
-git clone https://github.com/AronBA/Webserver.git
-cd Webserver
-mvn clean install
-```
+## Features
+- static content hosting
+- multithreaded implementation
+- overrideable [request handlers](HttpServer-Core/README.md#requesthandlers--mappings)
+- easy configuration
+- logging
+- hot reloading in developer mode (a bit buggy)
 
 ## Usage
 
@@ -30,23 +29,14 @@ start the server with:
 java -jar [YourJarName].jar -f my/path/to/my/epic/config/file
 ```
 
-## Features
-- ### Static Content Hosting  
-Every file put into the root dir will be hosted on the webserver.
+## Building locally
+To build locally use this command. It will generate the standalone and the core version in their modules
+```shell
+git clone https://github.com/AronBA/Webserver.git
+cd Webserver
+mvn clean install
+```
 
-- ### Multithreaded implementation
-blazingly fast and 100% thread safe !!11!!
 
-- ### Overridable Request mappings
-if used as a dependency the request handler can be easily overwritten
 
-- ### Super easy to configure
-It ain't much but it's honest work.
 
-- ### 0% Test coverage
-If it works it works
-
-- ### hot reload
-change your html and watch it reload in real time (only in dev mode).
-Sometimes it crashes but don't worry it's very safe 😃
-  
